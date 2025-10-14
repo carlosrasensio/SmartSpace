@@ -11,7 +11,7 @@ import SwiftUI
 struct SmartSpaceApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SpaceMainView()
         }
     }
 }

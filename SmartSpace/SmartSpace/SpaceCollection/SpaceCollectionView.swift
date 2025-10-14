@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SpaceCollectionView.swift
 //  SmartSpace
 //
 //  Created by Carlos Rodriguez Asensio on 14/10/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct SpaceCollectionView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,5 +20,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    SpaceCollectionView()
 }
