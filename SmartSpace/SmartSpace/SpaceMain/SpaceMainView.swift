@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct SpaceMainView: View {
+    
+    @Environment(SpaceGridViewModel.self) private var spaceGridViewModel
+    
+    // MARK: View
+    
     var body: some View {
         TabView {
             SpaceGridView()
+                .environment(spaceGridViewModel)
                 .tabItem {
                     Label("Colección", systemImage: "square.grid.2x2")
                 }
@@ -29,6 +35,8 @@ struct SpaceMainView: View {
         .tabBarMinimizeBehavior(.onScrollDown)
     }
 }
+
+// MARK: Preview
 
 #Preview {
     SpaceMainView()
