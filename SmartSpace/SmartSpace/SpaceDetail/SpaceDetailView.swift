@@ -18,7 +18,6 @@ struct SpaceDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // Imagen grande
                 Rectangle()
                     .fill(Color(.systemGray5))
                     .frame(height: 180)

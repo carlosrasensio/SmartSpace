@@ -5,16 +5,19 @@
 //  Created by Carlos Rodriguez Asensio on 14/10/25.
 //
 
-
-
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct SpaceMapView: View {
+    
+    // MARK: Private Properties
+
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 40.4168, longitude: -3.7038),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
     )
+    
+    // MARK: View
     
     var body: some View {
         NavigationStack {
@@ -65,6 +68,8 @@ struct SpaceMapView: View {
         }
     }
 }
+
+// MARK: Preview
 
 #Preview {
     SpaceMapView()
