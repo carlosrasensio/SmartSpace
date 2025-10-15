@@ -9,13 +9,24 @@ import SwiftUI
 
 struct SpaceMainView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            SpaceGridView()
+                .tabItem {
+                    Label("Colección", systemImage: "square.grid.2x2")
+                }
+            
+            SpaceMapView()
+                .tabItem {
+                    Label("Mapa", systemImage: "map")
+                }
+            
+            SpaceTrackedView()
+                .tabItem {
+                    Label("Destacados", systemImage: "bookmark")
+                }
         }
-        .padding()
+        .accentColor(.blue)
+        .tabBarMinimizeBehavior(.onScrollDown)
     }
 }
 
