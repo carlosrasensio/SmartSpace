@@ -12,6 +12,7 @@ struct SearchBarView: View {
     // MARK: Internal Properties
 
     @Binding var searchText: String
+    let placeholder: String
     
     // MARK: View
 
@@ -20,7 +21,7 @@ struct SearchBarView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.secondary)
             
-            TextField("Buscar espacios...", text: $searchText)
+            TextField(placeholder, text: $searchText)
                 .autocorrectionDisabled()
         }
         .padding()

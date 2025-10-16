@@ -32,7 +32,7 @@ struct SpaceMainView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: Constants.spacing) {
-                    SearchBarView(searchText:$searchText)
+                    SearchBarView(searchText:$searchText, placeholder: "Buscar espacios...")
                     
                     FilterMenuView(selectedFilter: $selectedFilter)
                                         
