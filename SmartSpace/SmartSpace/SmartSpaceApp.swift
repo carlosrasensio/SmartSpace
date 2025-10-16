@@ -12,14 +12,14 @@ struct SmartSpaceApp: App {
     
     // MARK: - Private Properties
     
-    @State private var spaceGridViewModel = SpaceFactory.makeSpaceGridViewModel()
+    @State private var spaceMainViewModel = SpaceFactory.makeSpaceMainViewModel()
 
     // MARK: - View
 
     var body: some Scene {
         WindowGroup {
-            SpaceFactory.makeSpaceMainView()
-                .environment(spaceGridViewModel)
+            SpaceFactory.makeSpaceHomeView()
+                .environment(spaceMainViewModel)
         }
     }
 }

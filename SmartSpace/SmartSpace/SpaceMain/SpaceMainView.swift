@@ -9,30 +9,52 @@ import SwiftUI
 
 struct SpaceMainView: View {
     
-    @Environment(SpaceGridViewModel.self) private var spaceGridViewModel
+    // MARK: Private Properties
+
+    @Environment(SpaceMainViewModel.self) private var viewModel
+    
+    @State private var searchText: String = ""
+    @State private var selectedFilter: String = "Todos los tipos"
+    
+    private var filteredSpaces: [SpaceItem] {
+        viewModel.getFilteredSpaces(selectedFilter: selectedFilter,
+                                    searchText: searchText)
+    }
+    
+    private let columns = [
+        GridItem(.flexible(), spacing: Constants.spacing),
+        GridItem(.flexible(), spacing: Constants.spacing)
+    ]
     
     // MARK: View
     
     var body: some View {
-        TabView {
-            SpaceGridView()
-                .environment(spaceGridViewModel)
-                .tabItem {
-                    Label("Colección", systemImage: "square.grid.2x2")
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: Constants.spacing) {
+                    SearchBarView(searchText:$searchText)
+                    
+                    FilterMenuView(selectedFilter: $selectedFilter)
+                                        
+                    SpaceGridView(spaces: filteredSpaces)
                 }
-            
-            SpaceMapView()
-                .tabItem {
-                    Label("Mapa", systemImage: "map")
-                }
-            
-            SpaceTrackedView()
-                .tabItem {
-                    Label("Destacados", systemImage: "bookmark")
-                }
+                .padding(.vertical, Constants.spacing)
+                .padding(.horizontal, Constants.spacing)
+            }
+            .navigationTitle("Espacios")
+            .navigationBarTitleDisplayMode(.large)
+            .task {
+                await viewModel.loadSpaces()
+            }
         }
-        .accentColor(.blue)
-        .tabBarMinimizeBehavior(.onScrollDown)
+    }
+}
+
+// MARK: Constants
+
+private extension SpaceMainView {
+    enum Constants {
+        static let spacing: CGFloat = 16
     }
 }
 
@@ -40,4 +62,5 @@ struct SpaceMainView: View {
 
 #Preview {
     SpaceMainView()
+        .environment(SpaceFactory.makeSpaceMainViewModel())
 }

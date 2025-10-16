@@ -1,5 +1,5 @@
 //
-//  SpaceGridViewModel.swift
+//  SpaceMainViewModel.swift
 //  SmartSpace
 //
 //  Created by Carlos Rodriguez Asensio on 14/10/25.
@@ -8,11 +8,11 @@
 import Foundation
 
 @Observable
-final class SpaceGridViewModel {
+final class SpaceMainViewModel {
     
-    // MARK: Private Properties
+    // MARK: Internal Properties
     
-    private var spaces: [SpaceItem] = []
+    var spaces: [SpaceItem] = []
     
     // MARK: Internal Functions
 
