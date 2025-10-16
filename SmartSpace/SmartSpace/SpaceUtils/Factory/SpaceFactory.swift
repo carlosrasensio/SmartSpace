@@ -8,11 +8,11 @@
 import Foundation
 
 final class SpaceFactory {
-    static func makeSpaceHomeView() -> SpaceHomeView {
+    static func makeSpaceMainView() -> SpaceMainView {
         .init()
     }
     
-    static func makeSpaceMainViewModel() -> SpaceMainViewModel {
+    static func makeSpaceContainerViewModel() -> SpaceContainerViewModel {
         .init()
     }
 }
