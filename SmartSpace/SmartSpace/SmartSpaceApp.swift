@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct SmartSpaceApp: App {
+    
+    // MARK: - Private Properties
+    
+    @State private var spaceContainerViewModel = SpaceFactory.makeSpaceContainerViewModel()
+
+    // MARK: - View
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SpaceFactory.makeSpaceMainView()
+                .environment(spaceContainerViewModel)
         }
     }
 }
