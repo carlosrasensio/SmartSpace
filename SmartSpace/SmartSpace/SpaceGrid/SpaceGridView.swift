@@ -12,16 +12,14 @@ struct SpaceGridView: View {
     // MARK: Private Properties
 
     @Environment(SpaceGridViewModel.self) private var viewModel
-
+    
+    @State private var searchText: String = ""
+    @State private var selectedFilter: String = "Todos los tipos"
+    
     private let columns = [
         GridItem(.flexible(), spacing: Constants.spacing),
         GridItem(.flexible(), spacing: Constants.spacing)
     ]
-    
-    // MARK: Internal Properties
-
-    @State var searchText: String = ""
-    @State var selectedFilter: String = "Todos los tipos"
     
     // MARK: View
     
@@ -29,9 +27,9 @@ struct SpaceGridView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: Constants.spacing) {
-                    makeSearchBar()
+                    SearchBarView(searchText:$searchText)
                     
-                    makeFilter()
+                    FilterMenuView(selectedFilter: $selectedFilter)
                     
                     LazyVGrid(columns: columns, spacing: Constants.spacing) {
                         let filteredSpaces = viewModel.getFilteredSpaces(selectedFilter: selectedFilter,
