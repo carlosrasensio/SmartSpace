@@ -32,7 +32,7 @@ struct SpaceContainerView: View {
             ScrollView {
                 VStack(spacing: Constants.spacing) {
                     SearchBarView(searchText: $searchText,
-                                  placeholder: mode.placeholder)
+                                  placeholder: mode.searchPlaceholder)
 
                     if mode.showFilter {
                         FilterMenuView(selectedFilter: $selectedFilter)
