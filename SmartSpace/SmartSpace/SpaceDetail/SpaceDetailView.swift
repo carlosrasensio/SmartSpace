@@ -9,6 +9,10 @@ import SwiftUI
 
 struct SpaceDetailView: View {
     
+    // MARK: - Private Properties
+    
+    @Environment(SpaceDetailViewModel.self) private var viewModel
+    
     // MARK: Internal Properties
 
     let space: SpaceItem
@@ -36,6 +40,16 @@ struct SpaceDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    Task { await viewModel.toggleTracked() }
+                } label: {
+                    Image(systemName: viewModel.isTracked ? "bookmark.fill" : "bookmark")
+                        .foregroundColor(viewModel.isTracked ? .accentColor : .primary)
+                }
+            }
+        }
     }
 }
 
@@ -111,4 +125,5 @@ private extension SpaceDetailView {
 
 #Preview {
     SpaceDetailView(space: SpaceItem.mockItem)
+        .environment(SpaceFactory.makeSpaceDetailViewModel())
 }

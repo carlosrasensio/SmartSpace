@@ -69,5 +69,5 @@ private extension SpaceContainerView {
 
 #Preview("Tracked Spaces") {
     SpaceContainerView(mode: .tracked)
-        .environment(SpaceContainerViewModel())
+        .environment(SpaceFactory.makeSpaceContainerViewModel())
 }

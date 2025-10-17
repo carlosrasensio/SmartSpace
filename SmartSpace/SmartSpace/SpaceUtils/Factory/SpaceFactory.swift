@@ -15,4 +15,8 @@ final class SpaceFactory {
     static func makeSpaceContainerViewModel() -> SpaceContainerViewModel {
         .init()
     }
+    
+    static func makeSpaceDetailViewModel() -> SpaceDetailViewModel {
+        .init()
+    }
 }
