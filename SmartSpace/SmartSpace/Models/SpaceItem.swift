@@ -17,14 +17,6 @@ struct SpaceItem: Identifiable {
     let iconName: String
     let imageURL: String
     let isTracked: Bool
-    
-    var temperatureFormatted: String {
-        String(format: "%.1f°C", temperature)
-    }
-    
-    var consumptionFormatted: String {
-        String(format: "%.0f kW", consumption)
-    }
 }
 
 extension SpaceItem {

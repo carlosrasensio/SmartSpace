@@ -72,23 +72,25 @@ private extension SpaceDetailView {
     }
 
     var sensorVariables: some View {
-            HStack(spacing: Constants.spacing * 4) {
-                makeSensorVariable(title: "Temperatura", value: space.temperatureFormatted)
-                makeSensorVariable(title: "Consumo", value: space.consumptionFormatted)
-            }
-            .frame(maxWidth: .infinity, alignment: .center)
+        HStack(spacing: Constants.spacing * 4) {
+            makeSensorVariable(.temperature(space.temperature))
+            makeSensorVariable(.consumption(space.consumption))
         }
-
-        func makeSensorVariable(title: String, value: String) -> some View {
-            VStack(alignment: .center, spacing: Constants.spacing / 4) {
-                Text(title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Text(value)
-                    .font(.title2)
-                    .bold()
-            }
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
+    
+    func makeSensorVariable(_ type: SensorVarible) -> some View {
+        VStack(alignment: .center, spacing: Constants.spacing / 4) {
+            Text(type.title)
+                .font(.caption)
+                .foregroundColor(.secondary)
+            Text(type.valueFormatted)
+                .font(.title2)
+                .bold()
+                .foregroundColor(type.valueColor)
         }
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
 
     var otherVariables: some View {
         Text("Gráficas y detalles próximamente...")
