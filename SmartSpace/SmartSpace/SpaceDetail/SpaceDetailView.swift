@@ -77,7 +77,7 @@ struct SpaceDetailView: View {
     }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
     SpaceDetailView(space: SpaceItem.mockItem)

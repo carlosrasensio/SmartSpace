@@ -56,7 +56,7 @@ struct SpaceCardView: View {
     }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
     SpaceCardView(space: SpaceItem.mockItem)

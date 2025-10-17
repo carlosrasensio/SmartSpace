@@ -36,7 +36,7 @@ struct SpaceMainView: View {
     }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
     SpaceMainView()
