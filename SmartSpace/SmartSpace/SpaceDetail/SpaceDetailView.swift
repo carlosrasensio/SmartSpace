@@ -17,10 +17,10 @@ struct SpaceDetailView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: Constants.spacing) {
                 headerImage
                 
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: Constants.spacing) {
                     title
                     description
                     
@@ -72,27 +72,36 @@ private extension SpaceDetailView {
     }
 
     var sensorVariables: some View {
-        HStack(spacing: 40) {
-            makeSensorVariable(title: "Temperatura", value: space.temperatureFormatted)
-            makeSensorVariable(title: "Consumo", value: space.consumptionFormatted)
+            HStack(spacing: Constants.spacing * 4) {
+                makeSensorVariable(title: "Temperatura", value: space.temperatureFormatted)
+                makeSensorVariable(title: "Consumo", value: space.consumptionFormatted)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
         }
-    }
+
+        func makeSensorVariable(title: String, value: String) -> some View {
+            VStack(alignment: .center, spacing: Constants.spacing / 4) {
+                Text(title)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Text(value)
+                    .font(.title2)
+                    .bold()
+            }
+        }
 
     var otherVariables: some View {
         Text("Gráficas y detalles próximamente...")
             .foregroundColor(.secondary)
             .padding(.vertical)
     }
+}
 
-    func makeSensorVariable(title: String, value: String) -> some View {
-        VStack(alignment: .leading) {
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.secondary)
-            Text(value)
-                .font(.title2)
-                .bold()
-        }
+// MARK: - Constants
+
+private extension SpaceDetailView {
+    enum Constants {
+        static let spacing: CGFloat = 16
     }
 }
 
