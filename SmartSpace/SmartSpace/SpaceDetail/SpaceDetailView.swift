@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SpaceDetailView: View {
     
     // MARK: - Private Properties
     
     @Environment(SpaceDetailViewModel.self) private var viewModel
+    @Environment(\.modelContext) private var modelContext
     
     // MARK: Internal Properties
 
@@ -50,6 +52,13 @@ struct SpaceDetailView: View {
                 }
             }
         }
+        .overlay(
+            Group {
+                if viewModel.showTrackedToast {
+                    createToast()
+                }
+            }
+        )
     }
 }
 
@@ -110,6 +119,39 @@ private extension SpaceDetailView {
         Text("Gráficas y detalles próximamente...")
             .foregroundColor(.secondary)
             .padding(.vertical)
+    }
+    
+    func createToast() -> some View {
+        VStack {
+            Text(viewModel.isTracked  ? "Espacio guardado en Destacados" : "Espacio eliminado de Destacados")
+                .background(viewModel.isTracked ? Color.green.opacity(0.1) : Color.red.opacity(0.1))
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .transition(.opacity)
+        }
+    }
+}
+
+// MARK: - Private Functions
+
+private extension SpaceDetailView {
+    func toggleTrackedSpace() {
+        viewModel.isTracked.toggle()
+        
+        if viewModel.isTracked {
+            modelContext.insert(space)
+        } else {
+            modelContext.delete(space)
+        }
+        
+        showTrackedToast()
+    }
+    
+    func showTrackedToast() {
+        viewModel.showTrackedToast = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            viewModel.showTrackedToast = false
+        }
     }
 }
 

@@ -13,6 +13,7 @@ final class SpaceDetailViewModel {
     // MARK: - Internal Properties
 
     var isTracked: Bool = false
+    var showTrackedToast: Bool = false
     
     // MARK: - Internal Functions
     

@@ -6,18 +6,42 @@
 //
 
 import Foundation
+import SwiftData
 
-struct SpaceItem: Identifiable {
-    let id: Int
-    let name: String
-    let building: String
-    let category: String
-    let temperature: Double
-    let consumption: Double
-    let iconName: String
-    let imageURL: String
-    let isTracked: Bool
+@Model
+final class SpaceItem: Identifiable {
+    @Attribute(.unique) var id: Int
+    var name: String
+    var building: String
+    var category: String
+    var temperature: Double
+    var consumption: Double
+    var iconName: String
+    var imageURL: String
+    var isTracked: Bool
+    
+    init(id: Int,
+         name: String,
+         building: String,
+         category: String,
+         temperature: Double,
+         consumption: Double,
+         iconName: String,
+         imageURL: String,
+         isTracked: Bool) {
+        self.id = id
+        self.name = name
+        self.building = building
+        self.category = category
+        self.temperature = temperature
+        self.consumption = consumption
+        self.iconName = iconName
+        self.imageURL = imageURL
+        self.isTracked = isTracked
+    }
 }
+
+// MARK: - Mocks
 
 extension SpaceItem {
     static var mockItem: SpaceItem {

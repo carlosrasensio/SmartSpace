@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SpaceContainerView: View {
     
     // MARK: Private Properties
     
     @Environment(SpaceContainerViewModel.self) private var viewModel
+    @Query private var trackedSpaces: [SpaceItem]
     @State private var searchText: String = ""
     @State private var selectedFilter: String = "Todos los tipos"
     

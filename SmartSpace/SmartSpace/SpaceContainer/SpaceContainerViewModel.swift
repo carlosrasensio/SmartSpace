@@ -38,15 +38,6 @@ final class SpaceContainerViewModel {
             return matchesSearch && (mode == .tracked || matchesFilter)
         }
     }
-    
-    func toggleTracked(for space: SpaceItem) {
-        // Por ahora, solo actualiza el array local
-        if let index = trackedSpaces.firstIndex(where: { $0.id == space.id }) {
-            trackedSpaces.remove(at: index)
-        } else {
-            trackedSpaces.append(space)
-        }
-    }
 }
 
 // MARK: Private Functions
