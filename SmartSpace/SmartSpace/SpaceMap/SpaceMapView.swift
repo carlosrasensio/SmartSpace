@@ -69,7 +69,7 @@ struct SpaceMapView: View {
     }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
     SpaceMapView()

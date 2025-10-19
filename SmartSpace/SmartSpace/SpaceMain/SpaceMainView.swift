@@ -9,13 +9,15 @@ import SwiftUI
 
 struct SpaceMainView: View {
     
+    // MARK: Private Properties
+
     @Environment(SpaceContainerViewModel.self) private var viewModel
     
     // MARK: View
     
     var body: some View {
         TabView {
-            SpaceContainerView(config: .allSpaces)
+            SpaceContainerView(mode: .all)
                 .environment(viewModel)
                 .tabItem {
                     Label("Colección", systemImage: "square.grid.2x2")
@@ -26,7 +28,7 @@ struct SpaceMainView: View {
                     Label("Mapa", systemImage: "map")
                 }
             
-            SpaceContainerView(config: .trackedSpaces)
+            SpaceContainerView(mode: .tracked)
                 .environment(viewModel)
                 .tabItem {
                     Label("Destacados", systemImage: "bookmark")
@@ -36,7 +38,7 @@ struct SpaceMainView: View {
     }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
     SpaceMainView()

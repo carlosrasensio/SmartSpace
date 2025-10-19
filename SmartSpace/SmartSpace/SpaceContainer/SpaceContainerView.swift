@@ -6,60 +6,61 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SpaceContainerView: View {
     
     // MARK: Private Properties
     
     @Environment(SpaceContainerViewModel.self) private var viewModel
-    
+    @Query private var trackedSpaces: [Space]
     @State private var searchText: String = ""
     @State private var selectedFilter: String = "Todos los tipos"
     
-    // MARK: Internal Properties
-    
-    let config: SpaceContainerConfiguration
-    
-    // MARK: View
-    
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: Constants.spacing) {
-                    SearchBarView(
-                        searchText: $searchText,
-                        placeholder: config.searchPlaceholder
-                    )
-                    
-                    if config.showFilter {
-                        FilterMenuView(selectedFilter: $selectedFilter)
-                    }
-                    
-                    SpaceGridView(spaces: filteredSpaces)
-                }
-                .padding(.vertical, Constants.spacing)
-                .padding(.horizontal, Constants.spacing)
-            }
-            .navigationTitle(config.title)
-            .navigationBarTitleDisplayMode(.large)
-            .task {
-                await viewModel.loadSpaces(for: config.mode)
-            }
-        }
+    private var spaces: [Space] {
+        viewModel.getFilteredSpaces(spaces: mode == .tracked ? trackedSpaces : Space.mockItems,
+                                    selectedFilter: selectedFilter,
+                                    searchText: searchText,
+                                    mode: mode)
     }
     
-    // MARK: Computed Properties
-    
-    private var filteredSpaces: [SpaceItem] {
-        viewModel.getFilteredSpaces(
-            mode: config.mode,
-            selectedFilter: selectedFilter,
-            searchText: searchText
-        )
+    // MARK: Internal Properties
+
+    let mode: SpaceContainerMode
+
+    // MARK: View
+
+    var body: some View {
+        NavigationStack {
+            Group {
+                if spaces.isEmpty {
+                    Text("No hay ningún espacio destacado")
+                        .font(.title3)
+                        .foregroundColor(.secondary)
+                } else {
+                    ScrollView {
+                        VStack(spacing: Constants.spacing) {
+                            SearchBarView(searchText: $searchText,
+                                          placeholder: mode.searchPlaceholder)
+                            
+                            if mode.showFilter {
+                                FilterMenuView(selectedFilter: $selectedFilter)
+                            }
+                            
+                            SpaceGridView(spaces: spaces)
+                        }
+                        .padding(.vertical, Constants.spacing)
+                        .padding(.horizontal, Constants.spacing)
+                    }
+                }
+            }
+            .navigationTitle(mode.title)
+            .navigationBarTitleDisplayMode(.large)
+        }
     }
 }
 
-// MARK: Constants
+// MARK: - Constants
 
 private extension SpaceContainerView {
     enum Constants {
@@ -67,42 +68,14 @@ private extension SpaceContainerView {
     }
 }
 
-// MARK: Configuration
-
-struct SpaceContainerConfiguration {
-    let mode: SpaceContainerMode
-    let title: String
-    let searchPlaceholder: String
-    let showFilter: Bool
-    
-    static let allSpaces = SpaceContainerConfiguration(
-        mode: .all,
-        title: "Espacios",
-        searchPlaceholder: "Buscar espacios...",
-        showFilter: true
-    )
-    
-    static let trackedSpaces = SpaceContainerConfiguration(
-        mode: .tracked,
-        title: "Destacados",
-        searchPlaceholder: "Buscar destacados...",
-        showFilter: false
-    )
-}
-
-enum SpaceContainerMode {
-    case all
-    case tracked
-}
-
-// MARK: Preview
+// MARK: - Preview
 
 #Preview("All Spaces") {
-    SpaceContainerView(config: .allSpaces)
+    SpaceContainerView(mode: .all)
         .environment(SpaceContainerViewModel())
 }
 
 #Preview("Tracked Spaces") {
-    SpaceContainerView(config: .trackedSpaces)
-        .environment(SpaceContainerViewModel())
+    SpaceContainerView(mode: .tracked)
+        .environment(SpaceFactory.makeSpaceContainerViewModel())
 }

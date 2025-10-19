@@ -11,7 +11,7 @@ struct SpaceCardView: View {
     
     // MARK: Internal Properties
 
-    let space: SpaceItem
+    let space: Space
     
     // MARK: View
 
@@ -56,10 +56,10 @@ struct SpaceCardView: View {
     }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
-    SpaceCardView(space: SpaceItem.mockItem)
+    SpaceCardView(space: Space.mockItem)
         .frame(width: 170)
         .padding()
 }

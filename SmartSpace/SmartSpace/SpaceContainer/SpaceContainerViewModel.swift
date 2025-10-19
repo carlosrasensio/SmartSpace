@@ -6,128 +6,22 @@
 //
 
 import Foundation
-import SwiftData
 
 @Observable
 final class SpaceContainerViewModel {
-    
-    // MARK: Internal Properties
-    
-    var allSpaces: [SpaceItem] = []
-    var trackedSpaces: [SpaceItem] = []
-    
-    // MARK: Private Properties
-    
-    private var modelContext: ModelContext?
-    
-    // MARK: Initialization
-    
-    init(modelContext: ModelContext? = nil) {
-        self.modelContext = modelContext
-    }
-    
+            
     // MARK: Internal Functions
     
-    func loadSpaces(for mode: SpaceContainerMode) async {
-        switch mode {
-        case .all:
-            await loadAllSpaces()
-        case .tracked:
-            await loadTrackedSpaces()
+    func getFilteredSpaces(spaces: [Space],
+                           selectedFilter: String,
+                           searchText: String,
+                           mode: SpaceContainerMode) -> [Space] {
+        spaces.filter { space in
+            let matchesSearch = searchText.isEmpty || space.name.localizedCaseInsensitiveContains(searchText)
+            let matchesFilter = (selectedFilter == "Todos los tipos") || (space.category == selectedFilter)
+            // si estamos en tracked, asumimos que showFilter puede estar desactivado,
+            // pero mantenemos la posibilidad de filtrar por si en el futuro se permite
+            return matchesSearch && (mode == .tracked ? matchesSearch : matchesFilter)
         }
     }
-    
-    func getFilteredSpaces(
-        mode: SpaceContainerMode,
-        selectedFilter: String,
-        searchText: String
-    ) -> [SpaceItem] {
-        let spaces = mode == .all ? allSpaces : trackedSpaces
-        
-        return spaces.filter { space in
-            let matchesSearch = searchText.isEmpty ||
-                space.name.localizedCaseInsensitiveContains(searchText)
-            let matchesFilter = selectedFilter == "Todos los tipos" ||
-                space.category == selectedFilter
-            
-            return matchesSearch && (mode == .tracked || matchesFilter)
-        }
-    }
-    
-    func toggleTracked(for space: SpaceItem) {
-        // TODO: Implementar con SwiftData
-        // Por ahora, solo actualiza el array local
-        if let index = trackedSpaces.firstIndex(where: { $0.id == space.id }) {
-            trackedSpaces.remove(at: index)
-        } else {
-            trackedSpaces.append(space)
-        }
-    }
-    
-    // MARK: Private Functions
-    
-    private func loadAllSpaces() async {
-        // Simula carga desde API
-        try? await Task.sleep(nanoseconds: 500_000_000)
-        allSpaces = SpaceItem.mockItems
-    }
-    
-    private func loadTrackedSpaces() async {
-        // TODO: Cargar desde SwiftData
-        try? await Task.sleep(nanoseconds: 500_000_000)
-        
-        // Por ahora, filtra los mock items
-        trackedSpaces = SpaceItem.mockItems.filter { $0.isTracked }
-        
-        // Cuando implementes SwiftData:
-        // trackedSpaces = fetchTrackedSpacesFromSwiftData()
-    }
-    
-    // MARK: SwiftData Functions (para implementar)
-    
-    /*
-    private func fetchTrackedSpacesFromSwiftData() -> [SpaceItem] {
-        guard let modelContext = modelContext else { return [] }
-        
-        let descriptor = FetchDescriptor<TrackedSpace>(
-            sortBy: [SortDescriptor(\.dateAdded, order: .reverse)]
-        )
-        
-        do {
-            let trackedSpaceModels = try modelContext.fetch(descriptor)
-            return trackedSpaceModels.map { $0.toSpaceItem() }
-        } catch {
-            print("Error fetching tracked spaces: \(error)")
-            return []
-        }
-    }
-    
-    func saveTrackedSpace(_ space: SpaceItem) {
-        guard let modelContext = modelContext else { return }
-        
-        let trackedSpace = TrackedSpace(from: space)
-        modelContext.insert(trackedSpace)
-        
-        do {
-            try modelContext.save()
-        } catch {
-            print("Error saving tracked space: \(error)")
-        }
-    }
-    
-    func removeTrackedSpace(_ space: SpaceItem) {
-        guard let modelContext = modelContext else { return }
-        
-        let predicate = #Predicate<TrackedSpace> { $0.spaceId == space.id }
-        let descriptor = FetchDescriptor<TrackedSpace>(predicate: predicate)
-        
-        do {
-            let results = try modelContext.fetch(descriptor)
-            results.forEach { modelContext.delete($0) }
-            try modelContext.save()
-        } catch {
-            print("Error removing tracked space: \(error)")
-        }
-    }
-    */
 }

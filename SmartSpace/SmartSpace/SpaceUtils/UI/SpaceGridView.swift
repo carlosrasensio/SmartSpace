@@ -11,7 +11,7 @@ struct SpaceGridView: View {
     
     // MARK: Internal Properties
     
-    let spaces: [SpaceItem]
+    let spaces: [Space]
     
     // MARK: Private Properties
     
