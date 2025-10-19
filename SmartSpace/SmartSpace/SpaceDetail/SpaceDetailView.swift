@@ -25,19 +25,19 @@ struct SpaceDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Constants.spacing) {
-                headerImage
+                headerImageView
                 
                 VStack(alignment: .leading, spacing: Constants.spacing) {
-                    title
-                    description
+                    titleView
+                    descriptionView
                     
                     Divider()
                     
-                    sensorVariables
+                    sensorVariablesView
                     
                     Divider()
                     
-                    otherVariables
+                    chartView
                 }
                 .padding()
             }
@@ -58,7 +58,7 @@ struct SpaceDetailView: View {
         }
         .overlay(alignment: .top) {
             if viewModel.showTrackedToast {
-                createToast()
+                createToastView()
             }
         }
     }
@@ -67,7 +67,7 @@ struct SpaceDetailView: View {
 // MARK: - Private Subviews
 
 private extension SpaceDetailView {
-    var headerImage: some View {
+    var headerImageView: some View {
         Rectangle()
             .fill(Color(.systemGray5))
             .frame(height: 180)
@@ -80,13 +80,13 @@ private extension SpaceDetailView {
             .clipped()
     }
 
-    var title: some View {
+    var titleView: some View {
         Text(space.name)
             .font(.title)
             .bold()
     }
 
-    var description: some View {
+    var descriptionView: some View {
         HStack {
             Label(space.building, systemImage: "mappin.circle")
             Spacer()
@@ -96,15 +96,15 @@ private extension SpaceDetailView {
         }
     }
 
-    var sensorVariables: some View {
+    var sensorVariablesView: some View {
         HStack(spacing: Constants.spacing * 4) {
-            makeSensorVariable(.temperature(space.temperature))
-            makeSensorVariable(.consumption(space.consumption))
+            makeSensorVariableView(.temperature(space.temperature))
+            makeSensorVariableView(.consumption(space.consumption))
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
     
-    func makeSensorVariable(_ type: SensorVarible) -> some View {
+    func makeSensorVariableView(_ type: SensorVarible) -> some View {
         VStack(alignment: .center, spacing: Constants.spacing / 4) {
             Text(type.title)
                 .font(.caption)
@@ -116,14 +116,8 @@ private extension SpaceDetailView {
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
-
-    var otherVariables: some View {
-        Text("Gráficas y detalles próximamente...")
-            .foregroundColor(.secondary)
-            .padding(.vertical)
-    }
     
-    func createToast() -> some View {
+    func createToastView() -> some View {
         Text(viewModel.isTracked ? "Espacio guardado en Destacados" : "Espacio eliminado de Destacados")
             .padding()
             .background(viewModel.isTracked ? Color.green.opacity(0.8) : Color.red.opacity(0.8))

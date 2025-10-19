@@ -36,7 +36,6 @@ enum SensorVarible {
         switch self {
         case .temperature(let value): Color.colorForTemperature(value)
         case .consumption(let value): Color.colorForConsumption(value)
-
         }
     }
 }
