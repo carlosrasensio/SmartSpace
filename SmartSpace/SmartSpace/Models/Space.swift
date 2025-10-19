@@ -1,5 +1,5 @@
 //
-//  SpaceItem.swift
+//  Space.swift
 //  SmartSpace
 //
 //  Created by Carlos Rodriguez Asensio on 14/10/25.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class SpaceItem: Identifiable {
+final class Space: Identifiable {
     @Attribute(.unique) var id: Int
     var name: String
     var building: String
@@ -40,9 +40,9 @@ final class SpaceItem: Identifiable {
 
 // MARK: - Mocks
 
-extension SpaceItem {
-    static var mockItem: SpaceItem {
-        SpaceItem(
+extension Space {
+    static var mockItem: Space {
+        Space(
             id: 1,
             name: "Oficina Principal",
             building: "Edificio Norte",
@@ -54,9 +54,9 @@ extension SpaceItem {
         )
     }
     
-    static var mockItems: [SpaceItem] {
+    static var mockItems: [Space] {
         [
-            SpaceItem(
+            Space(
                 id: 1,
                 name: "Oficina Principal",
                 building: "Edificio Norte",
@@ -66,7 +66,7 @@ extension SpaceItem {
                 iconName: "building.2",
                 isTracked: true
             ),
-            SpaceItem(
+            Space(
                 id: 2,
                 name: "Sala de Conferencias",
                 building: "Edificio Norte",
@@ -76,7 +76,7 @@ extension SpaceItem {
                 iconName: "person.3",
                 isTracked: true
             ),
-            SpaceItem(
+            Space(
                 id: 3,
                 name: "Almacén 1",
                 building: "Edificio Sur",
@@ -86,7 +86,7 @@ extension SpaceItem {
                 iconName: "shippingbox",
                 isTracked: false
             ),
-            SpaceItem(
+            Space(
                 id: 4,
                 name: "Cámara Frigorífica",
                 building: "Edificio Sur",
@@ -96,7 +96,7 @@ extension SpaceItem {
                 iconName: "snowflake",
                 isTracked: true
             ),
-            SpaceItem(
+            Space(
                 id: 5,
                 name: "Zona de Carga",
                 building: "Edificio Oeste",
@@ -106,7 +106,7 @@ extension SpaceItem {
                 iconName: "truck.box",
                 isTracked: false
             ),
-            SpaceItem(
+            Space(
                 id: 6,
                 name: "Laboratorio",
                 building: "Edificio Norte",

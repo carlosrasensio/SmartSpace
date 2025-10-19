@@ -17,7 +17,7 @@ struct SmartSpaceApp: App {
     @State private var spaceDetailViewModel = SpaceFactory.makeSpaceDetailViewModel()
     
     private var modelContainer: ModelContainer = {
-        let schema = Schema([SpaceItem.self ])
+        let schema = Schema([Space.self ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         
         do {

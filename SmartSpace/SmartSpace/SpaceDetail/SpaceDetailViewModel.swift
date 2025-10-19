@@ -17,7 +17,7 @@ final class SpaceDetailViewModel {
     
     // MARK: - Internal Functions
     
-    func setupTrackedSpace(_ space: SpaceItem, trackedSpaces: [SpaceItem]) {
+    func setupTrackedSpace(_ space: Space, trackedSpaces: [Space]) {
         isTracked = trackedSpaces.contains(where: { $0.id == space.id })
     }
     

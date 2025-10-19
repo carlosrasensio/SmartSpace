@@ -12,10 +12,10 @@ final class SpaceContainerViewModel {
             
     // MARK: Internal Functions
     
-    func getFilteredSpaces(spaces: [SpaceItem],
+    func getFilteredSpaces(spaces: [Space],
                            selectedFilter: String,
                            searchText: String,
-                           mode: SpaceContainerMode) -> [SpaceItem] {
+                           mode: SpaceContainerMode) -> [Space] {
         spaces.filter { space in
             let matchesSearch = searchText.isEmpty || space.name.localizedCaseInsensitiveContains(searchText)
             let matchesFilter = (selectedFilter == "Todos los tipos") || (space.category == selectedFilter)

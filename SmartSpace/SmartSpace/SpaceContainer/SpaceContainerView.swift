@@ -13,12 +13,12 @@ struct SpaceContainerView: View {
     // MARK: Private Properties
     
     @Environment(SpaceContainerViewModel.self) private var viewModel
-    @Query private var trackedSpaces: [SpaceItem]
+    @Query private var trackedSpaces: [Space]
     @State private var searchText: String = ""
     @State private var selectedFilter: String = "Todos los tipos"
     
-    private var spaces: [SpaceItem] {
-        viewModel.getFilteredSpaces(spaces: mode == .tracked ? trackedSpaces : SpaceItem.mockItems,
+    private var spaces: [Space] {
+        viewModel.getFilteredSpaces(spaces: mode == .tracked ? trackedSpaces : Space.mockItems,
                                     selectedFilter: selectedFilter,
                                     searchText: searchText,
                                     mode: mode)

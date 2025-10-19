@@ -14,11 +14,11 @@ struct SpaceDetailView: View {
     
     @Environment(SpaceDetailViewModel.self) private var viewModel
     @Environment(\.modelContext) private var modelContext
-    @Query private var trackedSpaces: [SpaceItem]
+    @Query private var trackedSpaces: [Space]
     
     // MARK: Internal Properties
 
-    let space: SpaceItem
+    let space: Space
     
     // MARK: View
 
@@ -162,6 +162,6 @@ private extension SpaceDetailView {
 // MARK: - Preview
 
 #Preview {
-    SpaceDetailView(space: SpaceItem.mockItem)
+    SpaceDetailView(space: Space.mockItem)
         .environment(SpaceFactory.makeSpaceDetailViewModel())
 }
