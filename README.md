@@ -12,10 +12,10 @@ SmartSpace es una aplicación iOS desarrollada con SwiftUI que permite a los usu
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Flujo de Navegación](#flujo-de-navegación)
 - [Gestión de Datos y Persistencia](#gestión-de-datos-y-persistencia)
+- [Diseño UX/UI](#diseño-ux-ui)
 - [Componentes Clave](#componentes-clave)
-- [Cómo Ejecutar el Proyecto](#cómo-ejecutar-el-proyecto)
 - [Mejoras Futuras](#mejoras-futuras)
-- [Contacto](#contacto)
+- [Cómo Ejecutar el Proyecto](#cómo-ejecutar-el-proyecto)
 
 ---
 
@@ -101,6 +101,7 @@ Se puede ver un primer diseño en el [prototipo de Figma](https://www.figma.com/
 - **Filtros dinámicos:** Permiten seleccionar categorías y buscar espacios por texto.
 - **Sincronización reactiva:** Uso de `@Observable` y `@Query` para mantener la UI actualizada sin esfuerzo manual.
 - **Gestión de contexto:** Uso correcto de `ModelContext` para inserciones y eliminaciones.
+- **Visualización de Datos con SwiftCharts:** En la sección de detalles de cada espacio, se ha implementado una gráfica básica que muestra la variación mensual de la temperatura y el consumo energético utilizando la librería nativa **SwiftCharts** de iOS.
 
 ---
 
