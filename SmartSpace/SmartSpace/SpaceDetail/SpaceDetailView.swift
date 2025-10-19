@@ -14,6 +14,7 @@ struct SpaceDetailView: View {
     
     @Environment(SpaceDetailViewModel.self) private var viewModel
     @Environment(\.modelContext) private var modelContext
+    @Query private var trackedSpaces: [SpaceItem]
     
     // MARK: Internal Properties
 
@@ -45,12 +46,15 @@ struct SpaceDetailView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    Task { await viewModel.toggleTracked() }
+                    toggleTrackedSpace()
                 } label: {
                     Image(systemName: viewModel.isTracked ? "bookmark.fill" : "bookmark")
                         .foregroundColor(viewModel.isTracked ? .accentColor : .primary)
                 }
             }
+        }
+        .onAppear {
+            viewModel.setupTrackedSpace(space, trackedSpaces: trackedSpaces)
         }
         .overlay(alignment: .top) {
             if viewModel.showTrackedToast {
@@ -135,22 +139,15 @@ private extension SpaceDetailView {
 
 private extension SpaceDetailView {
     func toggleTrackedSpace() {
-        viewModel.isTracked.toggle()
-        
         if viewModel.isTracked {
-            modelContext.insert(space)
+            if let managedSpace = trackedSpaces.first(where: { $0.id == space.id }) {
+                modelContext.delete(managedSpace)
+            }
         } else {
-            modelContext.delete(space)
+            modelContext.insert(space)
         }
         
-        showTrackedToast()
-    }
-    
-    func showTrackedToast() {
-        viewModel.showTrackedToast = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            viewModel.showTrackedToast = false
-        }
+        viewModel.toggleTrackedSpace()
     }
 }
 

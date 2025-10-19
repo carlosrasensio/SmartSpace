@@ -17,10 +17,11 @@ struct SpaceContainerView: View {
     @State private var searchText: String = ""
     @State private var selectedFilter: String = "Todos los tipos"
     
-    private var filteredSpaces: [SpaceItem] {
-        viewModel.getFilteredSpaces(mode: mode,
+    private var spaces: [SpaceItem] {
+        viewModel.getFilteredSpaces(spaces: mode == .tracked ? trackedSpaces : SpaceItem.mockItems,
                                     selectedFilter: selectedFilter,
-                                    searchText: searchText)
+                                    searchText: searchText,
+                                    mode: mode)
     }
     
     // MARK: Internal Properties
@@ -31,25 +32,30 @@ struct SpaceContainerView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: Constants.spacing) {
-                    SearchBarView(searchText: $searchText,
-                                  placeholder: mode.searchPlaceholder)
-
-                    if mode.showFilter {
-                        FilterMenuView(selectedFilter: $selectedFilter)
+            Group {
+                if spaces.isEmpty {
+                    Text("No hay ningún espacio destacado")
+                        .font(.title3)
+                        .foregroundColor(.secondary)
+                } else {
+                    ScrollView {
+                        VStack(spacing: Constants.spacing) {
+                            SearchBarView(searchText: $searchText,
+                                          placeholder: mode.searchPlaceholder)
+                            
+                            if mode.showFilter {
+                                FilterMenuView(selectedFilter: $selectedFilter)
+                            }
+                            
+                            SpaceGridView(spaces: spaces)
+                        }
+                        .padding(.vertical, Constants.spacing)
+                        .padding(.horizontal, Constants.spacing)
                     }
-
-                    SpaceGridView(spaces: filteredSpaces)
                 }
-                .padding(.vertical, Constants.spacing)
-                .padding(.horizontal, Constants.spacing)
             }
             .navigationTitle(mode.title)
             .navigationBarTitleDisplayMode(.large)
-            .task {
-                await viewModel.loadSpaces(for: mode)
-            }
         }
     }
 }

@@ -17,29 +17,16 @@ final class SpaceDetailViewModel {
     
     // MARK: - Internal Functions
     
-    func toggleTracked() async {
-        if isTracked {
-            await removeTrackedSpace()
-        } else {
-            await saveTrackedSpace()
-        }
-        
+    func setupTrackedSpace(_ space: SpaceItem, trackedSpaces: [SpaceItem]) {
+        isTracked = trackedSpaces.contains(where: { $0.id == space.id })
+    }
+    
+    func toggleTrackedSpace() {
+        isTracked.toggle()
         showTrackedToast = true
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.showTrackedToast = false
         }
-    }
-}
-
-// MARK: - Private Functions
-
-private extension SpaceDetailViewModel {
-    func saveTrackedSpace() async {
-        isTracked = true
-    }
-    
-    func removeTrackedSpace() async {
-        isTracked = false
     }
 }

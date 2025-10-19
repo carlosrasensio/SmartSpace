@@ -9,49 +9,19 @@ import Foundation
 
 @Observable
 final class SpaceContainerViewModel {
-    
-    // MARK: Internal Properties
-    
-    var allSpaces: [SpaceItem] = []
-    var trackedSpaces: [SpaceItem] = []
-    
+            
     // MARK: Internal Functions
     
-    func loadSpaces(for mode: SpaceContainerMode) async {
-        switch mode {
-        case .all: await loadAllSpaces()
-        case .tracked: await loadTrackedSpaces()
-        }
-    }
-    
-    func getFilteredSpaces(mode: SpaceContainerMode,
+    func getFilteredSpaces(spaces: [SpaceItem],
                            selectedFilter: String,
-                           searchText: String) -> [SpaceItem] {
-        let spaces = mode == .all ? allSpaces : trackedSpaces
-        
-        return spaces.filter { space in
-            let matchesSearch = searchText.isEmpty ||
-            space.name.localizedCaseInsensitiveContains(searchText)
-            let matchesFilter = selectedFilter == "Todos los tipos" ||
-            space.category == selectedFilter
-            
-            return matchesSearch && (mode == .tracked || matchesFilter)
+                           searchText: String,
+                           mode: SpaceContainerMode) -> [SpaceItem] {
+        spaces.filter { space in
+            let matchesSearch = searchText.isEmpty || space.name.localizedCaseInsensitiveContains(searchText)
+            let matchesFilter = (selectedFilter == "Todos los tipos") || (space.category == selectedFilter)
+            // si estamos en tracked, asumimos que showFilter puede estar desactivado,
+            // pero mantenemos la posibilidad de filtrar por si en el futuro se permite
+            return matchesSearch && (mode == .tracked ? matchesSearch : matchesFilter)
         }
-    }
-}
-
-// MARK: Private Functions
-
-private extension SpaceContainerViewModel {
-    func loadAllSpaces() async {
-        // Simula carga desde servicio
-        try? await Task.sleep(nanoseconds: 500_000_000)
-        allSpaces = SpaceItem.mockItems
-    }
-    
-    func loadTrackedSpaces() async {
-        // Simula carga desde servicio
-        try? await Task.sleep(nanoseconds: 500_000_000)
-        trackedSpaces = [SpaceItem.mockItem]
     }
 }
