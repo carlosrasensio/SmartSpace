@@ -17,7 +17,6 @@ final class SpaceItem: Identifiable {
     var temperature: Double
     var consumption: Double
     var iconName: String
-    var imageURL: String
     var isTracked: Bool
     
     init(id: Int,
@@ -27,7 +26,6 @@ final class SpaceItem: Identifiable {
          temperature: Double,
          consumption: Double,
          iconName: String,
-         imageURL: String,
          isTracked: Bool) {
         self.id = id
         self.name = name
@@ -36,7 +34,6 @@ final class SpaceItem: Identifiable {
         self.temperature = temperature
         self.consumption = consumption
         self.iconName = iconName
-        self.imageURL = imageURL
         self.isTracked = isTracked
     }
 }
@@ -53,7 +50,6 @@ extension SpaceItem {
             temperature: 22.1,
             consumption: 45,
             iconName: "building.2",
-            imageURL: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800",
             isTracked: true
         )
     }
@@ -68,7 +64,6 @@ extension SpaceItem {
                 temperature: 22.1,
                 consumption: 45,
                 iconName: "building.2",
-                imageURL: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800",
                 isTracked: true
             ),
             SpaceItem(
@@ -79,7 +74,6 @@ extension SpaceItem {
                 temperature: 21.5,
                 consumption: 32,
                 iconName: "person.3",
-                imageURL: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800",
                 isTracked: true
             ),
             SpaceItem(
@@ -90,7 +84,6 @@ extension SpaceItem {
                 temperature: 4.2,
                 consumption: 125,
                 iconName: "shippingbox",
-                imageURL: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=800",
                 isTracked: false
             ),
             SpaceItem(
@@ -101,7 +94,6 @@ extension SpaceItem {
                 temperature: -18.5,
                 consumption: 87,
                 iconName: "snowflake",
-                imageURL: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800",
                 isTracked: true
             ),
             SpaceItem(
@@ -112,7 +104,6 @@ extension SpaceItem {
                 temperature: 15.3,
                 consumption: 62,
                 iconName: "truck.box",
-                imageURL: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=800",
                 isTracked: false
             ),
             SpaceItem(
@@ -123,7 +114,6 @@ extension SpaceItem {
                 temperature: 20.8,
                 consumption: 78,
                 iconName: "flask",
-                imageURL: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800",
                 isTracked: false
             )
         ]
