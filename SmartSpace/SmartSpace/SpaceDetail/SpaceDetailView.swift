@@ -52,13 +52,11 @@ struct SpaceDetailView: View {
                 }
             }
         }
-        .overlay(
-            Group {
-                if viewModel.showTrackedToast {
-                    createToast()
-                }
+        .overlay(alignment: .top) {
+            if viewModel.showTrackedToast {
+                createToast()
             }
-        )
+        }
     }
 }
 
@@ -122,13 +120,14 @@ private extension SpaceDetailView {
     }
     
     func createToast() -> some View {
-        VStack {
-            Text(viewModel.isTracked  ? "Espacio guardado en Destacados" : "Espacio eliminado de Destacados")
-                .background(viewModel.isTracked ? Color.green.opacity(0.1) : Color.red.opacity(0.1))
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .transition(.opacity)
-        }
+        Text(viewModel.isTracked ? "Espacio guardado en Destacados" : "Espacio eliminado de Destacados")
+            .padding()
+            .background(viewModel.isTracked ? Color.green.opacity(0.8) : Color.red.opacity(0.8))
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            .transition(.opacity.combined(with: .move(edge: .top)))
+            .animation(.easeInOut, value: viewModel.showTrackedToast)
+            .padding(.top, 10)
     }
 }
 

@@ -23,6 +23,12 @@ final class SpaceDetailViewModel {
         } else {
             await saveTrackedSpace()
         }
+        
+        showTrackedToast = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.showTrackedToast = false
+        }
     }
 }
 
